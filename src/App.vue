@@ -1,15 +1,33 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <MyHeader @chosenItem="itemChange" />
+  <component :is="currentItem" />
+  <MyFooter />
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import MyHeader from './components/layouts/header.vue'
+import MyFooter from './components/layouts/footer.vue'
+
+import LoginForm from './components/LoginForm.vue'
+import AboutMe from './components/pages/AboutMe.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    MyHeader,
+    MyFooter,
+    LoginForm,
+    AboutMe
+  },
+  data() {
+    return {
+      currentItem: "AboutMe",
+    }
+  },
+  methods: {
+    itemChange(newOne) {
+      this.currentItem = newOne;
+    }
   }
 }
 </script>
@@ -19,8 +37,7 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  min-height: 100vh;
+  position: relative;
 }
 </style>
