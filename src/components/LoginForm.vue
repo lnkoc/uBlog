@@ -12,23 +12,68 @@
                 <button class="myButton" @click.prevent="logIn">Zaloguj</button>
             </fieldset>
         </form>
+        {{resp}}
     </div>
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
     name: 'LoginForm',
     data() {
         return {
             nickName: "",
             pass: "",
+            resp: "",
+            counter: ""
         }
     },
     methods: {
         logIn() {
-            console.log("loguj");
-            
-        }
+            let first = this.pass.charAt(0);
+            let last = this.pass.charAt(this.pass.length - 1);
+            axios.get('/login', { 
+                params :{ 
+                    "login": this.nickName,
+                    "first": first,
+                    "last": last,
+
+                }}, {withCredentials: true})
+                .then((res) => {
+                    this.resp = res.data;
+                    // console.log("pierwsze ciastko");
+                    this.getSession();
+                })
+                .catch((err) => {
+                    console.log(err);
+                    this.counter = 15;
+                    this.wait();
+                })
+        },
+        wait() {
+            this.resp = "Poczekaj " + this.counter + " sekund(y).";
+            if (this.counter > 0) {
+                this.counter--;
+                setTimeout(this.wait, 1000);
+            }
+            else {
+                this.resp = "Spróbuj ponownie się zalogować";
+            }
+        },
+        async getSession() {
+            await axios.get('/getCookie', {
+                params: {
+                    "pass": this.pass
+                }}, {withCredentials: true})
+                .then((res) => {
+                    // console.log("drugie ciastko");
+                    this.resp = res.data;
+                })
+                .catch((err) => {
+                    console.log(err);
+                })
+        } 
     }
 
 }

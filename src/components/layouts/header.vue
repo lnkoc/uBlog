@@ -2,7 +2,12 @@
   <div class="background">
     <div class="wrapper">
         <div class="logo">
+            <div class="column">
             <img alt="Mylogo" src="../../assets/ln.png" @click="login">
+            </div>
+            <div class="column">
+            <img alt="MyType" src="../../assets/koc.png">
+            </div>
         </div>
         <div class="menu">
             <button @click="aboutMe">o mnie</button>
@@ -49,7 +54,10 @@ export default {
 }
 .logo {
     float:left;
-    width: 60px;
+    width: 180px;
+}
+.column {
+    float: left;
 }
 .menu {
     text-align: right;
