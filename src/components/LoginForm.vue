@@ -1,32 +1,40 @@
 <template>
-    <div class="wrapper">
-        <form class="loginForm">
-            <fieldset>
-                <legend> Logowanie </legend>
-                <label for="nickname"> Użytkownik </label><br>
-                <input type="text" v-model="nickName" id="nickname" maxlength="25" autofocus> 
-                <br><br>
-                <label for="pass"> Hasło </label><br>
-                <input type="password" v-model="pass" id="pass" maxlength="25">
-                <br><br>
-                <button class="myButton" @click.prevent="logIn">Zaloguj</button>
-            </fieldset>
-        </form>
+    <div class="container">
+        <MainForm v-if="logged" />
+        <div v-else class="wrapper">
+            <form class="loginForm">
+                <fieldset>
+                    <legend> Logowanie </legend>
+                    <label for="nickname"> Użytkownik </label><br>
+                    <input type="text" v-model="nickName" id="nickname" maxlength="25" autofocus> 
+                    <br><br>
+                    <label for="pass"> Hasło </label><br>
+                    <input type="password" v-model="pass" id="pass" maxlength="25">
+                    <br><br>
+                    <button class="myButton" @click.prevent="logIn">Zaloguj</button>
+                </fieldset>
+            </form>
         {{resp}}
+        </div>
     </div>
 </template>
 
 <script>
 import axios from 'axios'
+import { defineAsyncComponent } from '@vue/runtime-core'
 
 export default {
     name: 'LoginForm',
+    components:{
+        MainForm: defineAsyncComponent(() => import("./blog/MainForm.vue"))
+    },
     data() {
         return {
             nickName: "",
             pass: "",
             resp: "",
-            counter: ""
+            counter: "",
+            logged: false
         }
     },
     methods: {
@@ -61,14 +69,15 @@ export default {
                 this.resp = "Spróbuj ponownie się zalogować";
             }
         },
-        async getSession() {
-            await axios.get('/getCookie', {
+        getSession() {
+            axios.get('/getCookie', {
                 params: {
                     "pass": this.pass
                 }}, {withCredentials: true})
                 .then((res) => {
                     // console.log("drugie ciastko");
                     this.resp = res.data;
+                    this.logged = true;
                 })
                 .catch((err) => {
                     console.log(err);
@@ -80,19 +89,25 @@ export default {
 </script>
 
 <style scoped>
-
-.wrapper {
-    width: 720px;
-    margin: auto;
-    min-height: 300px;
+.container {
     position: relative;
+    height: 100vh;
+}
+.wrapper {
+    margin: 0%;
+    width: 720px;
+    height: 50vh;
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     background-color: rgba(255, 255, 255, 0.7);
 }
 .loginForm {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 300px;
+    height:45vh;
     color: rgb(69, 127, 236);
 }
 .loginForm legend {
@@ -104,7 +119,6 @@ export default {
 .loginForm label {
     font-size: 0.8em;
 }
-
 .loginForm input {
     padding: 10px;
 }

@@ -20,7 +20,6 @@ import MyHeader from './components/layouts/header.vue'
 import MyFooter from './components/layouts/footer.vue'
 
 import AboutMe from './components/pages/AboutMe.vue'
-//import LoginForm from './components/LoginForm.vue'
 
 export default {
   name: 'App',
