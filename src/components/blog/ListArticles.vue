@@ -1,28 +1,37 @@
 <template>
-  <div class="listContainer">
-    <div> 
-      <h2>Lista artykułow</h2>
+  <div v-if="!edit" class="listContainer">
+    <div >
+      <div> 
+        <h2>Lista artykułow</h2>
+      </div>
+      <div>
+        <template v-for="item in list" :key="item.ID">
+          <div class="item">
+            <h3> {{item.TITLE}}</h3>
+            <p> {{item.INTRO}}</p>
+            <button @click.prevent="openArticle(item.ID)" class="editButton">Edytuj</button> <button class="deleteButton">Usuń</button>
+          </div>
+          <br><br>
+        </template>
+      </div>
     </div>
-      <template v-for="item in list" :key="item.ID">
-        <div class="item">
-          <h3> {{item.TITLE}}</h3>
-          <p> {{item.INTRO}}</p>
-          <button @click.prevent="$emit('edit', item.ID)" class="editButton">Edytuj</button> <button class="deleteButton">Usuń</button>
-        </div>
-        <br><br>
-      </template>
   </div>
+  <EditArticle v-else :articleId="editId"/>
 </template>
 
 <script>
+import { defineAsyncComponent } from '@vue/runtime-core'
 import axios from 'axios'
 export default {
   name: "ListArticles",
-  emits: ["edit"],
-
+  components: {
+    EditArticle: defineAsyncComponent( () => import("./EditArticle.vue"))
+  },
   data() {
     return {
-      list: []
+      list: [],
+      edit: false,
+      editId: ""
     }
   },
   mounted() {
@@ -34,6 +43,13 @@ export default {
           .catch((err) => {
             console.log(err);
           })
+  },
+  methods: {
+    openArticle(id) {
+      this.edit = true;
+      console.log(id);
+      this.editId = id;
+    }
   }
 }
 </script>

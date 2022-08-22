@@ -28,8 +28,6 @@ export default {
             title: "",
             intro: "",
             content: "",
-            date: "",
-            time: ""
         }
     },
     methods: {
