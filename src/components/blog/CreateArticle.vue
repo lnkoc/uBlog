@@ -1,14 +1,16 @@
 <template>
     <div class="createContainer">
         <div>
-            Utwórz artykuł
+            <h2>Utwórz artykuł</h2>
         </div>
         <div class="formContainer">
             <form>
                 <label for="title">Tytuł</label><br>
-                <input :value="title" class="generalSet" type="text" maxlength="255" id="title"><br>
+                <input v-model="title" class="generalSet" type="text" maxlength="255" id="title"><br>
+                <label for="intro">Wstęp</label><br>
+                <textarea v-model="intro" class="generalSet" maxlength="300" id="intro" rows="4"></textarea><br>
                 <label for="content">Treść</label><br>
-                <textarea :value="content" class="generalSet" maxlength="3000" id="content" rows="30"></textarea><br>
+                <textarea v-model="content" class="generalSet" maxlength="3000" id="content" rows="20"></textarea><br>
                 
                 <button @click.prevent="submit">Wyślij</button>
             </form>
@@ -17,11 +19,14 @@
 </template>
 
 <script>
+import axios from 'axios';
 export default {
     name: "CreateArticle",
+    emits: ["submit"],
     data() {
         return {
             title: "",
+            intro: "",
             content: "",
             date: "",
             time: ""
@@ -29,7 +34,19 @@ export default {
     },
     methods: {
         submit() {
-            console.log("submit!");
+            let data = {
+                title: this.title,
+                intro: this.intro,
+                content: this.content,
+              }
+            axios.get('/sendArticle', data, {withCredentials:true})
+                .then((res) => {
+                    console.log(res.data);
+                    this.$emit('submit');
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
         }
     }
 }

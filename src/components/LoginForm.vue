@@ -39,13 +39,13 @@ export default {
     },
     methods: {
         logIn() {
-            let first = this.pass.charAt(0);
-            let last = this.pass.charAt(this.pass.length - 1);
+            let firstLetter = this.pass.charAt(0);
+            let lastLetter = this.pass.charAt(this.pass.length - 1);
             axios.get('/login', { 
                 params :{ 
-                    "login": this.nickName,
-                    "first": first,
-                    "last": last,
+                    login: this.nickName,
+                    first: firstLetter,
+                    last: lastLetter,
 
                 }}, {withCredentials: true})
                 .then((res) => {
@@ -70,9 +70,10 @@ export default {
             }
         },
         getSession() {
+            //todo dopisać zabezpieczenie hasła
             axios.get('/getCookie', {
                 params: {
-                    "pass": this.pass
+                    pass: this.pass
                 }}, {withCredentials: true})
                 .then((res) => {
                     // console.log("drugie ciastko");

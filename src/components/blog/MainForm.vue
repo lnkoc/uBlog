@@ -9,7 +9,7 @@
         </div>
     </div>
     <!-- <div class="content"> -->
-        <component :is="currentItem" />
+        <component :is="currentItem" @submit="list" @edit="edit" :articleId=articleId />
     <!-- </div> -->
   </div>
 </template>
@@ -22,19 +22,27 @@ export default {
     name: "MainForm",
     components: {
         CreateArticle,
-        ListArticles : defineAsyncComponent(() => import("./ListArticles.vue"))
+        ListArticles: defineAsyncComponent(() => import("./ListArticles.vue")),
+        EditArticle: defineAsyncComponent( () => import("./EditArticle.vue"))
     },
     data() {
         return {
-            currentItem: "CreateArticle"
+            currentItem: "CreateArticle",
+            articleId: ""
         }
     },
     methods: {
         create() {
-            this.currentItem = "CreateArticle"
+            this.currentItem = "CreateArticle";
         },
         list() {
-            this.currentItem = "ListArticles"
+            this.currentItem = "ListArticles";
+            console.log("ładuję listę artykułów");
+        },
+        edit(id) {
+            this.articleId = id;
+            this.currentItem = "EditArticle";
+            console.log("edycja artyułu o id " + id);
         }
     }
 }
