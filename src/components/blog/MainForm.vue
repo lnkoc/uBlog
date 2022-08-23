@@ -4,12 +4,12 @@
         <div class="desc">Panel administratora</div>
         <div class="menu">
             <button @click.prevent="create">Utwórz artykuł</button>
-            <button @click.prevent="list">Otwórz listę edycji artykułow</button>
+            <button @click.prevent="list">Edycja artykułów</button>
             <button @click="logout">Wyloguj</button>
         </div>
     </div>
     <!-- <div class="content"> -->
-        <component :is="currentItem" @submit="list" />
+        <component :is="currentItem" @submited="list" />
     <!-- </div> -->
   </div>
 </template>
@@ -38,6 +38,9 @@ export default {
             this.currentItem = "ListArticles";
             console.log("ładuję listę artykułów");
         },
+        logout(){
+            location.reload();
+        }
     }
 }
 </script>

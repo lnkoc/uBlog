@@ -2,21 +2,21 @@
   <div v-if="!edit" class="listContainer">
     <div >
       <div> 
-        <h2>Lista artykułow</h2>
+        <h2>Lista artykułów</h2>
       </div>
       <div>
         <template v-for="item in list" :key="item.ID">
           <div class="item">
             <h3> {{item.TITLE}}</h3>
             <p> {{item.INTRO}}</p>
-            <button @click.prevent="openArticle(item.ID)" class="editButton">Edytuj</button> <button class="deleteButton">Usuń</button>
+            <button @click.prevent="openArticle(item.ID)" class="editButton">Edytuj</button> <button @click.prevent="deleteArticle(item.ID)" class="deleteButton">Usuń</button>
           </div>
           <br><br>
         </template>
       </div>
     </div>
   </div>
-  <EditArticle v-else :articleId="editId"/>
+  <EditArticle v-else :articleId="editId" @edited="closeEdit"/>
 </template>
 
 <script>
@@ -35,7 +35,11 @@ export default {
     }
   },
   mounted() {
-    axios.get("/getList", {withCredentials: true})
+    this.refresh();
+  },
+  methods: {
+    refresh() {
+      axios.get("/getList", {withCredentials: true})
           .then((res) => {
             console.log("pobieram listę artykułów");
             this.list = res.data;
@@ -43,12 +47,25 @@ export default {
           .catch((err) => {
             console.log(err);
           })
-  },
-  methods: {
+    },
     openArticle(id) {
       this.edit = true;
-      console.log(id);
       this.editId = id;
+    },
+    closeEdit() {
+      this.edit = false;
+      this.refresh();
+    },
+    deleteArticle(articleId) {
+      axios.post('/deleteArticle', {
+        params: {
+          id: articleId
+          }}, {withCredentials: true}
+      )
+      .catch((err) => {
+        console.log(err);
+      });
+      this.refresh();
     }
   }
 }

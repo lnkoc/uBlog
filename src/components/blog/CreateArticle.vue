@@ -12,7 +12,7 @@
                 <label for="content">Treść</label><br>
                 <textarea v-model="content" class="generalSet" maxlength="3000" id="content" rows="20"></textarea><br>
                 
-                <button @click.prevent="submit">Wyślij</button>
+                <button @click.prevent="submit" class="createButton">Wyślij</button>
             </form>
         </div>
     </div>
@@ -22,7 +22,7 @@
 import axios from 'axios';
 export default {
     name: "CreateArticle",
-    emits: ["submit"],
+    emits: ["submited"],
     data() {
         return {
             title: "",
@@ -35,12 +35,14 @@ export default {
             let data = {
                 title: this.title,
                 intro: this.intro,
-                content: this.content,
+                content: this.content
               }
-            axios.get('/sendArticle', data, {withCredentials:true})
+            axios.post('/saveArticle', {
+                params: data
+                }, {withCredentials:true})
                 .then((res) => {
                     console.log(res.data);
-                    this.$emit('submit');
+                    this.$emit('submited');
                 })
                 .catch((err) => {
                     console.log(err);
@@ -67,6 +69,12 @@ export default {
 }    
 .formContainer textarea {
     resize: none;
+}
+.createButton {
+  padding: 10px;
+  border: 0px;
+  color: aliceblue;
+  background-color: cornflowerblue;
 }
 
 </style>

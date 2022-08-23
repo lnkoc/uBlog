@@ -11,8 +11,7 @@
             <textarea v-model="intro" class="generalSet" maxlength="300" id="intro" rows="4"></textarea><br>
             <label for="content">Treść</label><br>
             <textarea v-model="content" class="generalSet" maxlength="3000" id="content" rows="20"></textarea><br>
-
-            <button @click.prevent="submit">Wyślij</button>
+            <button @click.prevent="update" class="submitButton">Modyfikuj</button> <button @click.prevent="abort" class="abortButton">Anuluj</button>
         </form>
     </div>
   </div>
@@ -23,6 +22,7 @@ import axios from 'axios';
 export default {
     name: "EditArticle",
     props: ['articleId'],
+    emits: ['edited'],
     data() {
         return {
             title: "",
@@ -38,7 +38,6 @@ export default {
                 }
             }, {withCredentials: true})
             .then((res) => {
-
                 this.title = res.data[0].TITLE;
                 this.intro = res.data[0].INTRO;
                 this.content = res.data[0].CONTENT;
@@ -46,6 +45,29 @@ export default {
             .catch((err) => {
                 console.log(err);
             })
+    },
+    methods: {
+        abort() {
+            this.$emit("edited");
+        },
+        update() {
+            let data = {
+                id: this.articleId,
+                title: this.title,
+                intro: this.intro,
+                content: this.content
+            }
+            axios.post('/updateArticle', {
+                params: data
+                }, {withCredentials: true})
+                .then((res) => {
+                    console.log(res.data);
+                    this.$emit("edited");
+                })
+                .catch((err) => {
+                    console.log(err);
+                })
+        }
     }
 
 
@@ -68,5 +90,17 @@ export default {
 }    
 .formContainer textarea {
     resize: none;
+}
+.submitButton {
+  padding: 10px;
+  border: 0px;
+  color: aliceblue;
+  background-color: cornflowerblue;
+}
+.abortButton {
+  padding: 10px;
+  border: 0px;
+  color: aliceblue;
+  background-color: darkred;
 }
 </style>

@@ -11,7 +11,7 @@
         </div>
         <div class="menu">
             <button @click="aboutMe">o mnie</button>
-            <button>μBlog</button>
+            <button @click="uBlog">μBlog</button>
             <button>hobby</button>
             <button>github</button>
             <button>kontakt</button>
@@ -31,6 +31,10 @@ export default {
         aboutMe () {
             console.log("strona o mnie");
             this.$emit("chosenItem", "aboutMe");
+        },
+        uBlog () {
+            console.log("uBlog");
+            this.$emit("chosenItem", "uBlog");
         }
     }
 
