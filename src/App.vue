@@ -9,19 +9,21 @@
   </Suspense>
   <div v-else>
     <MyHeader @chosenItem="itemChange" />
-    <component :is="currentItem" :key="componentKey" />
+    <Transition>
+      <component :is="currentItem" :key="componentKey" />
+    </Transition>
   </div>
   <MyFooter />
 </template>
 
 <script>
 import {defineAsyncComponent} from 'vue'
-// import {ref} from 'vue'
 import MyHeader from './components/layouts/header.vue'
 import MyFooter from './components/layouts/footer.vue'
 
 import AboutMe from './components/pages/AboutMe.vue'
 import uBlog from './components/pages/uBlog.vue'
+import MyHobby from './components/pages/MyHobby.vue'
 
 export default {
   name: 'App',
@@ -30,6 +32,7 @@ export default {
     MyFooter,
     AboutMe,
     uBlog,
+    MyHobby,
     LoginForm : defineAsyncComponent(() => import('./components/LoginForm.vue')),
   },
   data() {
@@ -61,4 +64,11 @@ export default {
   min-height: 100vh;
   position: relative;
 }
+.v-enter-active {
+  transition: opacity 0.5s ease;
+}
+.v-enter-from {
+  opacity: 0;
+}
+
 </style>

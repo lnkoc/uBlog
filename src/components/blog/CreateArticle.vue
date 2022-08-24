@@ -56,8 +56,7 @@ export default {
 
 .createContainer {
     padding: 35px;
-    height: 80vh;
-    position: relative;
+    min-height: 100vh;
 }
 .generalSet {
     width: 650px;

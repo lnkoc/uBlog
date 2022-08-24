@@ -77,8 +77,8 @@ export default {
 <style scoped>
 .editContainer {
     padding: 35px;
-    height: 80vh;
-    position: relative;
+    min-height: 80vh;
+    /* position: relative; */
 }
 .generalSet {
     width: 650px;

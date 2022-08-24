@@ -40,7 +40,7 @@ export default {
 .wrapper {
     width: 720px;
     margin: auto;
-    min-height: 300px;
+    min-height: 83vh;
     background-color: rgba(255, 255, 255, 0.7);
 }
 .content {

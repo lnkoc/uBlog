@@ -12,7 +12,7 @@
         <div class="menu">
             <button @click="aboutMe">o mnie</button>
             <button @click="uBlog">μBlog</button>
-            <button>hobby</button>
+            <button @click="myHobby">hobby</button>
             <button>github</button>
             <button>kontakt</button>
         </div>    
@@ -24,17 +24,21 @@
 export default {
     name: 'MyHeader',
     methods: {
-        login (){
+        login() {
             console.log("otwieram logowanie");
             this.$emit("chosenItem", "LoginForm");
         },
-        aboutMe () {
+        aboutMe() {
             console.log("strona o mnie");
-            this.$emit("chosenItem", "aboutMe");
+            this.$emit("chosenItem", "AboutMe");
         },
-        uBlog () {
+        uBlog() {
             console.log("uBlog");
             this.$emit("chosenItem", "uBlog");
+        },
+        myHobby () {
+            console.log("moje hobby");
+            this.$emit("chosenItem", "MyHobby");
         }
     }
 

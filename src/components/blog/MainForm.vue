@@ -3,13 +3,13 @@
     <div class="menuWrapper">
         <div class="desc">Panel administratora</div>
         <div class="menu">
-            <button @click.prevent="create">Utwórz artykuł</button>
-            <button @click.prevent="list">Edycja artykułów</button>
+            <button @click="create">Utwórz artykuł</button>
+            <button @click="list">Edycja artykułów</button>
             <button @click="logout">Wyloguj</button>
         </div>
     </div>
     <!-- <div class="content"> -->
-        <component :is="currentItem" @submited="list" />
+        <component :is="currentItem" @submited="list" :key="componentKey" />
     <!-- </div> -->
   </div>
 </template>
@@ -27,7 +27,8 @@ export default {
     data() {
         return {
             currentItem: "CreateArticle",
-            articleId: ""
+            articleId: "",
+            componentKey: 0
         }
     },
     methods: {
@@ -35,10 +36,12 @@ export default {
             this.currentItem = "CreateArticle";
         },
         list() {
+            this.componentKey++;
             this.currentItem = "ListArticles";
             console.log("ładuję listę artykułów");
         },
         logout(){
+            //TODO skasować ciasteczka
             location.reload();
         }
     }
@@ -49,13 +52,15 @@ export default {
 .backstage {
     margin: auto;
     width: 720px;
-    height: 100vh;
+    min-height: 100vh;
     background-color: rgba(255, 255, 255, 0.7);
 }
 .menuWrapper {
     height: 60px;
     width: 720px;
     background-color: rgb(69, 127, 236);
+    position: sticky;
+    top: 0px;
 }
 .desc {
     width: 200px;

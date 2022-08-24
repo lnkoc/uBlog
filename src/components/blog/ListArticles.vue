@@ -74,8 +74,7 @@ export default {
 <style>
 .listContainer {
   padding: 35px;
-  max-height: 83vh;
-  overflow-y: auto;
+  min-height: 83vh;
 }
 .item {
   padding: 20px;

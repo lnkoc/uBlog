@@ -3,7 +3,7 @@
     <div class="article">
         <div class="title">{{title}}</div><br>
         {{createdDate}}<br><br>
-        {{content}}<br><br>
+        <span v-html="content"></span><br><br>
         <button @click="close" class="closeButton">Powrót do listy artykułów</button>
     </div>
   </div>
