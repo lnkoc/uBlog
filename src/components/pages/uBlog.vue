@@ -8,7 +8,7 @@
                     <div class="title">{{item.TITLE}}</div><br>
                     {{item.CREATED}}<br><br>
                     {{item.INTRO}}<br><br>
-                    <button class="openButton" @click.prevent="loadArticle(item.ID)">Czytaj całość</button>
+                    <button class="openButton" @click="loadArticle(item.ID)">Czytaj całość</button>
                 </div><br>
             </template>
         </div>

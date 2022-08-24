@@ -9,13 +9,14 @@
   </Suspense>
   <div v-else>
     <MyHeader @chosenItem="itemChange" />
-    <component :is="currentItem" />
+    <component :is="currentItem" :key="componentKey" />
   </div>
   <MyFooter />
 </template>
 
 <script>
 import {defineAsyncComponent} from 'vue'
+// import {ref} from 'vue'
 import MyHeader from './components/layouts/header.vue'
 import MyFooter from './components/layouts/footer.vue'
 
@@ -35,6 +36,7 @@ export default {
     return {
       currentItem: "AboutMe",
       admin: false,
+      componentKey: 0
     }
   },
   methods: {
@@ -43,6 +45,7 @@ export default {
         this.admin = true;
       }
       else {
+        this.componentKey++;
         this.currentItem = newOne;
       }
     }

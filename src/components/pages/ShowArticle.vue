@@ -4,7 +4,7 @@
         <div class="title">{{title}}</div><br>
         {{createdDate}}<br><br>
         {{content}}<br><br>
-        <button @click.prevent="close" class="closeButton">Powrót do listy artykułów</button>
+        <button @click="close" class="closeButton">Powrót do listy artykułów</button>
     </div>
   </div>
 </template>
@@ -31,7 +31,7 @@ export default {
                 this.createdDate = date;
                 this.content = res.data[0].CONTENT;
             })
-    }, 
+    },
     methods: {
         close() {
             this.$emit("close");
