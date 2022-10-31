@@ -24,6 +24,7 @@ import MyFooter from './components/layouts/footer.vue'
 import AboutMe from './components/pages/AboutMe.vue'
 import uBlog from './components/pages/uBlog.vue'
 import MyHobby from './components/pages/MyHobby.vue'
+import MyProjects from './components/pages/MyProjects.vue'
 
 export default {
   name: 'App',
@@ -33,6 +34,7 @@ export default {
     AboutMe,
     uBlog,
     MyHobby,
+    MyProjects,
     LoginForm : defineAsyncComponent(() => import('./components/LoginForm.vue')),
   },
   data() {

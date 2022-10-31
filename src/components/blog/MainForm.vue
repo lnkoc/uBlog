@@ -1,5 +1,5 @@
 <template>
-  <div class="backstage">
+  <div class="background">
     <div class="menuWrapper">
         <div class="desc">Panel administratora</div>
         <div class="menu">
@@ -49,7 +49,7 @@ export default {
 </script>
 
 <style scoped>
-.backstage {
+.background {
     margin: auto;
     width: 720px;
     min-height: 100vh;

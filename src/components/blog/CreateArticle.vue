@@ -1,5 +1,5 @@
 <template>
-    <div class="createContainer">
+    <div class="wrapper">
         <div>
             <h2>Utwórz artykuł</h2>
         </div>
@@ -54,9 +54,9 @@ export default {
 
 <style scoped>
 
-.createContainer {
+.wrapper {
     padding: 35px;
-    min-height: 100vh;
+    min-height: 83vh;
 }
 .generalSet {
     width: 650px;

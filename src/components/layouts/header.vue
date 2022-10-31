@@ -1,6 +1,6 @@
 <template>
   <div class="background">
-    <div class="wrapper">
+    <div class="menuWrapper">
         <div class="logo">
             <div class="column">
             <img alt="Mylogo" src="../../assets/ln.png" @click="login">
@@ -13,7 +13,7 @@
             <button @click="aboutMe">o mnie</button>
             <button @click="uBlog">μBlog</button>
             <button @click="myHobby">hobby</button>
-            <button>github</button>
+            <button @click="myProjects">projekty</button>
             <button>kontakt</button>
         </div>    
     </div>
@@ -36,9 +36,13 @@ export default {
             console.log("uBlog");
             this.$emit("chosenItem", "uBlog");
         },
-        myHobby () {
+        myHobby() {
             console.log("moje hobby");
             this.$emit("chosenItem", "MyHobby");
+        },
+        myProjects() {
+            console.log("moje projekty");
+            this.$emit("chosenItem", "MyProjects");
         }
     }
 
@@ -51,9 +55,10 @@ export default {
     top: 0px;
     position: sticky;
     width: 100%;
-    background-color: cornflowerblue;    
+    background-color: cornflowerblue;
+    z-index: 1;
 }
-.wrapper {
+.menuWrapper {
     width: 720px;
     height: 60px;
     margin: auto;

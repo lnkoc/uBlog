@@ -1,4 +1,4 @@
-# ublog
+# uBlog
 
 ## Project setup
 ```
